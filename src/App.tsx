@@ -10,6 +10,7 @@ import SendComplete from "@/components/SendComplete";
 export default function App() {
   const [showIntroImage, setShowIntroImage] = useState(true); // 로그인 성공 시 false
   const [showLogin, setShowLogin] = useState(false); // 로그인 컴포넌트 페이드인
+  const [isLoggingIn, setIsLoggingIn] = useState(false); // 로딩 상태
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -25,7 +26,11 @@ export default function App() {
   const handleLogin = (id: string, pw: string) => {
     if (id === "admin" && pw === "1234") {
       setShowIntroImage(false); // 로그인 성공 시 이미지 제거
-      navigate("/loading");
+      setIsLoggingIn(true); // 로딩 시작
+      setTimeout(() => {
+        setIsLoggingIn(false);
+        navigate("/list"); // 2초 후 /list 이동
+      }, 2000);
     } else {
       alert("아이디 또는 비밀번호가 틀렸습니다.");
     }
@@ -34,7 +39,7 @@ export default function App() {
   return (
     <div className="w-full h-screen bg-black relative overflow-hidden">
       {/* 인트로 이미지 (로그인 화면에서만 표시) */}
-      {location.pathname === "/" && showIntroImage && (
+      {location.pathname === "/" && (
         <img
           src={introImg}
           className="w-full h-full object-cover absolute inset-0 z-0"
@@ -46,16 +51,21 @@ export default function App() {
         <Route
           path="/"
           element={
-            <div className="relative z-10 flex justify-center items-center h-screen top-[-100px] right-[-400px]">
-              {showLogin && (
-                <div className="animate-slide-in">
-                  <Login onLogin={handleLogin} />
-                </div>
+            <div className="relative z-10 flex justify-center items-center h-screen">
+              {isLoggingIn ? (
+                <Loading />
+              ) : (
+                showLogin && (
+                  <div className="relative z-10 flex justify-center items-center h-screen top-[-100px] right-[-400px]">
+                    <div className="animate-slide-in">
+                      <Login onLogin={handleLogin} />
+                    </div>
+                  </div>
+                )
               )}
             </div>
           }
         />
-        <Route path="/loading" element={<Loading />} />
         <Route path="/list" element={<PatientList />} />
         <Route path="/detail/:id" element={<PatientDetail />} />
         <Route path="/sent" element={<SendComplete />} />
