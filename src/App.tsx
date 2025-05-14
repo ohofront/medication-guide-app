@@ -8,7 +8,6 @@ import introImg from "@/assets/intro.png";
 import SendComplete from "@/components/SendComplete";
 
 export default function App() {
-  const [showIntroImage, setShowIntroImage] = useState(true); // 로그인 성공 시 false
   const [showLogin, setShowLogin] = useState(false); // 로그인 컴포넌트 페이드인
   const [isLoggingIn, setIsLoggingIn] = useState(false); // 로딩 상태
   const navigate = useNavigate();
@@ -25,7 +24,6 @@ export default function App() {
   // 로그인 처리
   const handleLogin = (id: string, pw: string) => {
     if (id === "admin" && pw === "1234") {
-      setShowIntroImage(false); // 로그인 성공 시 이미지 제거
       setIsLoggingIn(true); // 로딩 시작
       setTimeout(() => {
         setIsLoggingIn(false);
