@@ -54,7 +54,7 @@ export default function App() {
                 <Loading />
               ) : (
                 showLogin && (
-                  <div className="relative z-10 flex justify-center items-center h-screen top-[-100px] right-[-400px]">
+                  <div className="w-full max-w-md animate-slide-in">
                     <div className="animate-slide-in">
                       <Login onLogin={handleLogin} />
                     </div>
