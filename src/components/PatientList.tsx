@@ -1,44 +1,43 @@
-// PatientList.tsx - 환자 리스트 컴포넌트 (React Router 기반)
-import { patients } from "@/dummy/data";
 import { useNavigate } from "react-router-dom";
+import wardImage from "@/assets/list.png";
 
 const PatientList = () => {
-  const navigate = useNavigate(); // 상세 페이지 이동을 위한 네비게이션 훅
+  const navigate = useNavigate();
 
   return (
-    <div className="p-8 bg-white h-screen overflow-auto">
+    <div className="min-h-screen p-8 bg-white ">
       {/* 페이지 제목 */}
-      <h2 className="text-2xl font-bold mb-6 text-gray-800">환자 리스트</h2>
+      <h2 className="mb-6 text-2xl font-bold text-gray-800">환자 리스트</h2>
 
-      {/* 환자 정보 테이블 */}
-      <table className="w-full border border-gray-200 text-sm">
-        <thead className="bg-gray-100">
-          <tr>
-            <th className="border px-4 py-2">이름</th>
-            <th className="border px-4 py-2">성별</th>
-            <th className="border px-4 py-2">나이</th>
-            <th className="border px-4 py-2">병실</th>
-            <th className="border px-4 py-2">전화번호</th>
-          </tr>
-        </thead>
-
-        {/* 환자 리스트 렌더링 */}
-        <tbody>
-          {patients.map((patient) => (
-            <tr
-              key={patient.id}
-              className="hover:bg-blue-50 cursor-pointer"
-              onClick={() => navigate(`/detail/${patient.id}`)} // 클릭 시 상세 페이지로 이동
-            >
-              <td className="border px-4 py-2">{patient.name}</td>
-              <td className="border px-4 py-2">{patient.gender}</td>
-              <td className="border px-4 py-2">{patient.age}</td>
-              <td className="border px-4 py-2">{patient.ward}</td>
-              <td className="border px-4 py-2">{patient.phone}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      {/* 마스킹된 이미지 */}
+      <div className="w-full max-w-7xl ">
+        <img
+          src={wardImage}
+          alt="환자 병동 리스트"
+          className="w-auto rounded-lg shadow-lg"
+        />
+        {/* 첫 번째 행: 노순임 → 나궁금으로 클릭 가능하게 */}
+        <div
+          className="absolute top-[230px] left-[150px] w-[60px] h-[20px] cursor-pointer bg-black"
+          onClick={() => navigate("/detail")} // id=999 가정
+        >
+          <div className="items-center text-xs text-center text-white">
+            나궁금
+          </div>{" "}
+          {/* 접근성용 숨김 텍스트 */}
+        </div>
+        {/* 마스킹 박스들 (신율아, 환자명, 등록번호, 담당의, 담당간호사) */}
+        <div className="absolute top-[250px] left-[150px] w-[60px] h-[170px] bg-black rounded" />{" "}
+        {/* 환자명 */}
+        <div className="absolute top-[230px] left-[210px] w-[90px] h-[190px] bg-black rounded" />{" "}
+        {/* 등록번호 */}
+        <div className="absolute top-[230px] left-[510px] w-[100px] h-[190px] bg-black rounded" />{" "}
+        {/* 담당교수 & 담당의 */}
+        <div className="absolute top-[230px] left-[1000px] w-[60px] h-[190px] bg-black  rounded" />{" "}
+        {/* 담당간호사 */}
+        <div className="absolute top-[230px] left-[1230px] w-[60px] h-[190px] bg-black rounded" />{" "}
+        {/* 환자명 */}
+      </div>
     </div>
   );
 };

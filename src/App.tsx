@@ -35,12 +35,12 @@ export default function App() {
   };
 
   return (
-    <div className="w-full h-screen bg-black relative overflow-hidden">
+    <div className="relative w-full h-screen overflow-hidden bg-black">
       {/* 인트로 이미지 (로그인 화면에서만 표시) */}
       {location.pathname === "/" && (
         <img
           src={introImg}
-          className="w-full h-full object-cover absolute inset-0 z-0"
+          className="absolute inset-0 z-0 object-cover w-full h-full"
           alt="intro"
         />
       )}
@@ -49,7 +49,7 @@ export default function App() {
         <Route
           path="/"
           element={
-            <div className="relative z-10 flex justify-center items-center h-screen">
+            <div className="relative z-10 flex items-center justify-center h-screen">
               {isLoggingIn ? (
                 <Loading />
               ) : (
@@ -65,7 +65,7 @@ export default function App() {
           }
         />
         <Route path="/list" element={<PatientList />} />
-        <Route path="/detail/:id" element={<PatientDetail />} />
+        <Route path="/detail" element={<PatientDetail />} />
         <Route path="/sent" element={<SendComplete />} />
       </Routes>
     </div>
